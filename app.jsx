@@ -12,9 +12,9 @@ class Timer extends React.Component {
 
 
 
-    this.start = this.start.bind(this);
-    this.stop = this.stop.bind(this);
-    this.reset = this.reset.bind(this);
+    // this.start = this.start.bind(this);
+    // this.stop = this.stop.bind(this);
+    // this.reset = this.reset.bind(this);
 
   }
   start() {
@@ -30,7 +30,7 @@ class Timer extends React.Component {
     
   }
 
-  reset(e) {
+  btnReset(e) {
     this.setState({count:0})  
     // e.preventDefault();
     // this.setState({ count: 0 })
@@ -39,8 +39,8 @@ class Timer extends React.Component {
   render() {
     return <div className="timer">
       <p>{this.state.count}</p>
-      <button onClick={this.start}>ATART</button>
-      <button onClick={this.reset}>RESET</button>
+      <button onClick={() => this.start()}>ATART</button>
+      <button onClick={(e) => this.btnReset(e)}>RESET</button>
     </div>;
   }
 
