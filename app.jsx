@@ -1,3 +1,47 @@
+
+
+class chronometer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      count: 0,
+    };
+    this.timer = null;
+    this.startedOn = 0;
+
+
+
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
+  }
+  start() {
+    this.startedOn = new Date().getTime();
+    this.timer = window.setInterval(this.updateTime.bind(this), 55);
+  }
+  updateTime() {
+    this.setState({ count: new Date().getTime() - this.startedOn });
+  }
+  stop() {
+    window.clearInterval(this.timer);
+  }
+
+  reset =(e) =>{
+    e.preventDefault();
+    this.setState({count:0})
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
 class Model {
   constructor() {
     this.players = [
@@ -75,9 +119,9 @@ const Header = (props) => {
 
       <div className="col-md-4 stopwatch">
         <p>STOPWATH</p>
-        <h1>0</h1>
-        <button>ATART</button>
-        <button>RESET</button>
+        <div>{this.state.count}</div>
+        <button onStart={this.start} onStop={this.stop}>ATART</button>
+        <button onClick={this.reset}>RESET</button>
       </div>
     </div>
   )
