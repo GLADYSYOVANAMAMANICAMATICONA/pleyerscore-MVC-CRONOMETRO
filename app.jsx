@@ -20,18 +20,20 @@ class Timer extends React.Component {
   start() {
     let counter=0;
    this.time= setInterval(()=>{this.setState({count:counter})
-  counter++; }, 500);
+  counter++; }, 1000);
 
 
   }
 
   stop() {
-    this.setState({count:1})
+    
+    clearInterval(this.time);
     
   }
 
   btnReset(e) {
-    this.setState({count:0})  
+    this.setState({count:0})
+    this.stop()  
     // e.preventDefault();
     // this.setState({ count: 0 })
   }
