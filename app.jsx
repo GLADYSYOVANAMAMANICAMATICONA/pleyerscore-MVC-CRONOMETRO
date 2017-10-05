@@ -1,6 +1,6 @@
 
 
-class chronometer extends React.Component {
+class timer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -26,9 +26,16 @@ class chronometer extends React.Component {
     window.clearInterval(this.timer);
   }
 
-  reset =(e) =>{
+  reset (e) {
     e.preventDefault();
-    this.setState({count:0})
+    this.setState({ count: 0 })
+  }
+
+  render() {
+    return <div className="timer">
+      <button onStart={this.start} onStop={this.stop}>ATART</button>
+      <button onClick={this.reset}>RESET</button>
+    </div>;
   }
 
 }
@@ -119,9 +126,8 @@ const Header = (props) => {
 
       <div className="col-md-4 stopwatch">
         <p>STOPWATH</p>
-        <div>{this.state.count}</div>
-        <button onStart={this.start} onStop={this.stop}>ATART</button>
-        <button onClick={this.reset}>RESET</button>
+         <timer/>
+
       </div>
     </div>
   )
