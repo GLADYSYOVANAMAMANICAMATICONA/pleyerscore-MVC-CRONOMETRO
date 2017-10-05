@@ -1,6 +1,6 @@
 
 
-class timer extends React.Component {
+class Timer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -14,32 +14,36 @@ class timer extends React.Component {
 
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
+    this.reset = this.reset.bind(this);
+
   }
   start() {
-    this.startedOn = new Date().getTime();
-    this.timer = window.setInterval(this.updateTime.bind(this), 55);
-  }
-  updateTime() {
-    this.setState({ count: new Date().getTime() - this.startedOn });
-  }
-  stop() {
-    window.clearInterval(this.timer);
+    this.setState({count:1})
+    
   }
 
-  reset (e) {
-    e.preventDefault();
-    this.setState({ count: 0 })
+  stop() {
+    this.setState({count:1})
+    
+  }
+
+  reset(e) {
+    this.setState({count:0})  
+    // e.preventDefault();
+    // this.setState({ count: 0 })
   }
 
   render() {
     return <div className="timer">
-      <button onStart={this.start} onStop={this.stop}>ATART</button>
+      <p>{this.state.count}</p>
+      <button onClick={this.start}>ATART</button>
       <button onClick={this.reset}>RESET</button>
     </div>;
   }
 
 }
-
+// Vocabulario
+// startedOn------empezar en
 
 
 
@@ -125,41 +129,40 @@ const Header = (props) => {
       </div>
 
       <div className="col-md-4 stopwatch">
-        <p>STOPWATH</p>
-         <timer/>
+        <Timer/>
 
       </div>
-    </div>
-  )
+      </div>
+      )
 }
 
 
 
-const PlayerList = ({ model }) => {
+const PlayerList = ({model}) => {
   return (
     <div>{
-      model.players.map((item, index) => {
-        return (
-          <div className="player">
-            <div className="player-name " >{item.name}</div>
-            <div className="player-score counter ">
-              <button className="counter-action decrement btn" onClick={() => model.disminuir(index)} >-</button>
-              <div className="counter-score" >{item.score} </div>
-              <button className="counter-action increment" onClick={() => { model.aumentar(index) }}>+</button>
+        model.players.map((item, index) => {
+          return (
+            <div className="player">
+              <div className="player-name " >{item.name}</div>
+              <div className="player-score counter ">
+                <button className="counter-action decrement btn" onClick={() => model.disminuir(index)} >-</button>
+                <div className="counter-score" >{item.score} </div>
+                <button className="counter-action increment" onClick={() => { model.aumentar(index) }}>+</button>
+              </div>
             </div>
-          </div>
+          )
+        }
         )
       }
+      </div>
       )
-    }
-    </div>
-  )
 }
 
 
 
 const PlayerForm = React.createClass({
-  render: function () {
+        render: function () {
     return (
       <div className="add-player-form">
         <form onSubmit={e => {
@@ -171,28 +174,28 @@ const PlayerForm = React.createClass({
           <input type="submit" value="Player" />
         </form>
       </div>
-    )
+      )
   }
 })
 
 
-const Application = ({ title, model }) => {
+const Application = ({title, model }) => {
   return (
     <div className="scoreboard">
-      <Header model={model} />
-      <PlayerList model={model} />
-      <PlayerForm />
-    </div>
-  );
+        <Header model={model} />
+        <PlayerList model={model} />
+        <PlayerForm />
+      </div>
+      );
 }
 
 let model = new Model();
 let counter = 1;
 
 let render = () => {
-  ReactDOM.render(<Application title="Scoreboard" model={model} />,
-    document.getElementById('container')
-  );
-};
+        ReactDOM.render(<Application title="Scoreboard" model={model} />,
+          document.getElementById('container')
+        );
+      };
 model.subscribe(render);
 render();
